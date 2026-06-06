@@ -41,12 +41,6 @@ We take the security of our users and system seriously. The project includes the
 * **Intentional server overload:** DDoS Protection.
 * **Session hijacking:** Token authorization via secure cookies.
 
-## 👥 Our Team – Centrix
-
-* **Maksym Martynyshyn** — Teamlead, Backend developer
-* **Yuliia Martsiv** — Frontend developer
-* **Kirill Konovalov** — Frontend developer
-* **Vira Poberezhnyk** — UI/UX designer
 
 ---
 *Created by Centrix*
