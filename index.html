@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://wmap.pp.ua/" />
+    <meta name="description" content="[Знайти автомат з водою]">
+    <meta name="robots" content="index, follow">
+    <title>Wmap</title>
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@700&family=Palanquin+Dark:wght@600&family=Palanquin:wght@200;500&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<header class="header">
+    <div class="menu-btn"> 
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav id="sidebar-menu" class="sidebar-nav">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="/icons/logo.svg" alt="logo__icon">
+                <span class="logo-text">map</span>
+            </div>
+            <button id="close-menu-btn" class="close-menu-btn">&times;</button>
+        </div>
+        <div class="sidebar-divider"></div>
+
+        <div class="profile-header">
+            <img src="/icons/user_logo.svg" alt="User icon">
+            <span class="sidebar-profile">Гість</span>
+        </div>
+
+        <ul class="sidebar-links">
+            <li>
+                <a href="#" id="open-add-machine">
+                    <img src="/icons/Vector (4).svg" alt="add"> Додати автомат
+                </a>
+            </li>
+            <li>
+                <a href="favorites">
+                    <img src="/icons/Vector (11).svg" alt="favorite"> Улюблені
+                </a>
+            </li>
+            <li>
+                <a href="#" id="open-settings">
+                    <img src="/icons/line-md_cog-filled-loop.svg" alt="settings"> Налаштування
+                </a>
+            </li>
+            <li>
+                <a href="about-us">
+                <img src="/icons/Vector (12).svg" alt="about">Про проєкт</a></li>
+            <li class="company-menu">
+                <a href="#" id="open-add-profile">
+                    <img src="/icons/Vector (16).svg" alt="profile"> Додати профіль компанії
+                </a>
+            </li>
+            <li>
+                <a href="moderation" id="mod-link" class="mod-link" style="display:none">
+                    <img src="/icons/Vector (4).svg" alt="moderation"> Модерація
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="#" class="logout-link" style="display:none">
+                <img src="/icons/bx_log-out.svg" alt="exit icon"> Вихід
+            </a>
+            <a href="login" class="login-link">
+                <img src="/icons/Union.svg" alt="entrance icon"> Вхід
+            </a>
+        </div>
+    </nav>
+
+    <div class="logo">
+        <img src="/icons/logo.svg" alt="logo__icon">
+        <span class="logo__text">map</span>
+    </div>
+    <div class="divider"></div>
+    <a href="login" class="btn_login in">Увійти</a>
+</header>
+
+<main>
+    <h1 class="hidden"></h1>
+    <div class="map-wrapper">
+        <div id="map"></div>
+        <div class="map-controls">
+            <button class="control-btn" aria-label="Місцезнаходження">
+                <img src="/icons/Vector (8).svg" alt="location">
+            </button>
+            <button id="btn-zoom-in" class="control-btn" aria-label="Збільшити">
+                <img src="/icons/Vector (7).svg" alt="zoom in">
+            </button>
+            <button id="btn-zoom-out" class="control-btn" aria-label="Зменшити">
+                <img src="/icons/Vector (9).svg" alt="zoom out">
+            </button>
+        </div>
+    </div>
+</main>
+
+<div id="modal-add-machine" class="modal-overlay-bg">
+    <div class="modal-card-container">
+        <div class="modal-card-header">
+            <h2 class="modal-card-title">Додати автомат</h2>
+            <button id="close-modal-btn" class="modal-card-close">&times;</button>
+        </div>
+        <form class="machine-add-form">
+            <div class="form-input-group">
+                <label class="form-label">Компанія</label>
+                <input type="text" class="form-input-field">
+            </div>
+            <div class="form-input-group">
+                <label class="form-label">Адреса</label>
+                <input type="text" id="address-input-field" class="form-input-field">
+            </div>
+            <div class="form-input-group">
+                <label class="form-label">Опис</label>
+                <input type="text" class="form-input-field" placeholder="Додати короткий опис">
+            </div>
+            <div class="form-input-group">
+                <label class="form-label">Фото автомата</label>
+                <div class="file-upload-row">
+                    <input type="file" id="machine-photo-input" class="file-input-hidden">
+                    <label for="machine-photo-input" class="file-custom-btn">Виберіть файл</label>
+                    <span class="file-status-info">Файл не вибрано</span>
+                </div>
+            </div>
+            <button type="submit" class="form-submit-btn">Зберегти</button>
+        </form>
+    </div>
+</div>
+
+<div id="modal-settings" class="modal-overlay-bg">
+    <div class="modal-card-container settings-card-fix">
+        <div class="settings-top-nav">
+              <a href="/" class="back-link">
+            <img src="/icons/Vector (21).svg" alt="Arrow">
+            Повернутись
+        </a>
+            <h2 class="modal-card-title">Налаштування акаунту</h2>
+        </div>
+        <div class="profile-header-center">
+            <div class="avatar-wrapper">
+                <img src="/icons/Mask group.svg" alt="User" class="main-avatar">
+            </div>
+            <div class="nickname-edit-group">
+                <span class="nickname-display">Nickname</span>
+                <button class="edit-btn-icon">
+                    <img src="/icons/image 23.svg" alt="Edit">
+                </button>
+            </div>
+        </div>
+        <div class="settings-sections-container">
+            <div class="settings-card-block">
+                <h3 class="block-subtitle">Інформація</h3>
+                <div class="form-input-group">
+                    <label class="form-label-small">Електронна пошта</label>
+                    <input type="email" id="settings-email" class="form-input-field" placeholder="example@mail.com">
+                </div>
+            </div>
+            <div class="settings-card-block">
+                <h3 class="block-subtitle">Зміна паролю</h3>
+                <div class="form-input-group">
+                    <label class="form-label-small">Поточний пароль</label>
+                    <div class="input-container">
+                        <input type="password" id="settings-old-pass" class="form-input-field">
+                         <img src="/icons/Vector (10).svg" class="eye-icon-inside" alt="toggle">
+                    </div>
+                    <div class="forgot-pass-align">
+                        <a href="recovery-password" class="forgot-link-small">Забули пароль? Скинути</a>
+                    </div>
+                </div>
+                <div class="form-input-group">
+                    <label class="form-label-small">Новий пароль</label>
+                    <div class="input-container">
+                        <input type="password" id="settings-new-pass" class="form-input-field">
+                        <img src="/icons/Vector (10).svg" class="eye-icon-inside" alt="toggle">
+                    </div>
+                </div>
+                <div class="form-input-group">
+                    <label class="form-label-small">Підтвердження нового паролю</label>
+                    <div class="input-container">
+                        <input type="password" id="settings-confirm-pass" class="form-input-field">
+                        <img src="/icons/Vector (10).svg" class="eye-icon-inside" alt="toggle">
+                    </div>
+                </div>
+                <div class="two-factor-row">
+                    <span class="two-factor-label">Двофакторна аутентифікація</span>
+                    <label class="switch">
+                        <input type="checkbox" id="settings-2fa-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="settings-action-footer">
+            <button class="btn-delete-acc">Видалити акаунт</button>
+            <button class="btn-save-changes">Зберегти зміни</button>
+        </div>
+    </div>
+</div>
+
+<div id="modal-location-picker" class="modal-overlay-bg">
+    <div class="modal-card-container location-picker-card">
+        <div class="modal-card-header">
+            <h2 class="modal-card-title">Виберіть локацію</h2>
+            <button id="close-location-picker-btn" class="modal-card-close">&times;</button>
+        </div>
+        <div class="location-picker-content">
+            <div id="location-picker-map"></div>
+            <div class="center-marker">
+                <img src="/icons/Vector (8).svg" alt="Marker">
+            </div>
+            <div class="location-info-panel">
+                <div class="selected-address">
+                    <span class="address-label">Вибрана адреса:</span>
+                    <span id="selected-address-text">Переміщуйте карту...</span>
+                </div>
+                <div class="selected-coords">
+                    <span id="selected-coords-text">0.0000, 0.0000</span>
+                </div>
+            </div>
+        </div>
+        <div class="location-picker-actions">
+            <button id="cancel-location-btn" class="btn-secondary">Скасувати</button>
+            <button id="confirm-location-btn" class="btn-primary">Підтвердити</button>
+        </div>
+    </div>
+</div>
+
+<div id="bottom-sheet-overlay" class="bs-overlay"></div>
+<div id="bottom-sheet" class="bottom-sheet">
+    <div class="bs-handle-wrap">
+        <div class="bs-handle"></div>
+        <button id="bottom-sheet-close" class="bs-close">&times;</button>
+    </div>
+    <div id="bottom-sheet-body" class="bs-body"></div>
+</div>
+<div id="modal-2fa-setup" class="modal-overlay-bg" style="display: none; z-index: 9999;">
+    <div class="modal-card-container" style="max-width: 400px; text-align: center;">
+        <div class="modal-card-header">
+            <h2 class="modal-card-title">Налаштування 2FA</h2>
+            <button id="close-2fa-setup-btn" class="modal-card-close">&times;</button>
+        </div>
+
+        <p style="margin-bottom: 15px; font-size: 14px; color: #666; line-height: 1.4;">
+            Відскануйте QR-код або натисніть на картинку (на телефоні).
+        </p>
+
+        <img id="qr-code-img" src="" alt="QR Code" style="margin: 0 auto 20px; display: block; border-radius: 8px; transition: transform 0.2s;">
+
+        <!-- НОВИЙ БЛОК: Виведення ключа для ручного вводу -->
+        <div style="margin-bottom: 20px;">
+            <p style="font-size: 13px; color: #888; margin-bottom: 6px;">Або введіть цей код вручну:</p>
+            <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
+                <code id="manual-2fa-secret" style="background: #f0f2f5; padding: 8px 12px; border-radius: 6px; font-weight: bold; letter-spacing: 2px; font-size: 14px; color: #1a1a2e; user-select: all;"></code>
+                <button id="copy-secret-btn" style="background: none; border: none; cursor: pointer; padding: 6px; display: flex; align-items: center; justify-content: center; border-radius: 6px;" title="Копіювати">
+                    <!-- Іконка копіювання -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- КІНЕЦЬ НОВОГО БЛОКУ -->
+
+        <div class="form-input-group">
+            <input type="text" id="setup-2fa-code" class="form-input-field" placeholder="000000" maxlength="6" style="text-align: center; letter-spacing: 5px; font-size: 20px;">
+        </div>
+        <button id="confirm-2fa-setup-btn" class="btn-save-changes" style="width: 100%; margin-top: 15px;">Увімкнути</button>
+    </div>
+</div>
+
+<div id="modal-2fa-disable" class="modal-overlay-bg" style="display: none; z-index: 9999;">
+    <div class="modal-card-container" style="max-width: 400px;">
+        <div class="modal-card-header">
+            <h2 class="modal-card-title">Вимкнути 2FA</h2>
+            <button id="close-2fa-disable-btn" class="modal-card-close">&times;</button>
+        </div>
+        <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Введіть ваш поточний пароль для підтвердження вимкнення.</p>
+        <div class="form-input-group">
+            <div class="input-container">
+                <input type="password" id="disable-2fa-password" class="form-input-field" placeholder="Ваш пароль">
+                <img src="/icons/Vector (10).svg" class="eye-icon-inside eye-toggle" alt="toggle">
+            </div>
+        </div>
+        <button id="confirm-2fa-disable-btn" class="btn-delete-acc" style="width: 100%; margin-top: 15px;">Вимкнути 2FA</button>
+    </div>
+</div>
+
+<div id="modal-delete-account" class="modal-overlay-bg" style="display: none; z-index: 9999;">
+    <div class="modal-card-container" style="max-width: 400px; text-align: center;">
+        <div class="modal-card-header">
+            <h2 class="modal-card-title" style="color: #ef4444;">Видалити акаунт?</h2>
+            <button id="close-delete-account-btn" class="modal-card-close">&times;</button>
+        </div>
+        <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Цю дію неможливо скасувати. Для підтвердження видалення введіть свій поточний пароль.</p>
+        <div class="form-input-group">
+            <div class="input-container">
+                <input type="password" id="delete-account-password" class="form-input-field" placeholder="Ваш пароль">
+                <img src="/icons/Vector (10).svg" class="eye-icon-inside eye-toggle" alt="toggle">
+            </div>
+        </div>
+        <button id="confirm-delete-account-btn" class="btn-delete-acc" style="width: 100%; margin-top: 15px;">Назавжди видалити</button>
+    </div>
+</div>
+
+<script src="/js/auth-helper.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/location-picker.js"></script>
+<script src="/js/add-machine.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/map.js"></script>
+<script src="/js/settings.js"></script>
+</body>
+</html>

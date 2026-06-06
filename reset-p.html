@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скинути пароль</title>
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="/css/reset-p-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<main class="reset-container">
+     <a href="/" class="back-link" id="backButton">
+            <span class="material-icons">
+            <img src="icons/Vector (21).svg" alt="Arrow"> 
+            </span>Повернутись</a>
+
+    <img src="/icons/logo.svg" alt="Wmap Logo" class="logo">
+
+    <h1>Скинути пароль</h1>
+    
+    <form action="" method="POST">
+        <div class="input-group">
+            <input type="password" id="password" name="password" placeholder="новий пароль" required>
+            <img src="/icons/Vector (10).svg" class="eye-icon-inside" alt="toggle">
+        </div>
+        <div class="input-group">
+            <input type="password" id="new-password" name="new password" placeholder="новий пароль ще раз" required>
+            <img src="/icons/Vector (10).svg" class="eye-icon-inside" alt="toggle">
+        </div>
+
+        <button type="submit" class="btn-save">Змінити пароль</button>
+    </form>
+</main>
+
+<script src="/js/password.js"></script>
+
+</body>
+</html>
